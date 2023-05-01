@@ -1,26 +1,21 @@
 import PropTypes from 'prop-types';
+import FriendList from 'components/FriendList/FriendList';
+import { Wrapper } from './Friends.styled';
 
-import {
-  Wrapper,
-  Item,
-  OnlineLabel,
-  Avatar,
-  Title,
-  Link,
-} from './Friends.styled';
 const Friends = ({ data }) => {
-  const renderList = () =>
-    data.map(({ id, isOnline, name, avatar, link }) => (
-      <Link key={id} href={link} target="_blank">
-        <Item>
-          <OnlineLabel isOnline={isOnline} />
-          <Avatar src={avatar} alt={name} />
-          <Title>{name}</Title>
-        </Item>
-      </Link>
-    ));
-
-  return <Wrapper>{data && renderList()}</Wrapper>;
+  return (
+    <Wrapper>
+      {data.map(({ id, isOnline, name, avatar, link }) => (
+        <FriendList
+          key={id}
+          isOnline={isOnline}
+          name={name}
+          avatar={avatar}
+          link={link}
+        />
+      ))}
+    </Wrapper>
+  );
 };
 
 Friends.propTypes = {
@@ -29,9 +24,7 @@ Friends.propTypes = {
       avatar: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       isOnline: PropTypes.bool.isRequired,
-      id: PropTypes.number.isRequired,
     })
   ).isRequired,
 };
-
 export default Friends;

@@ -1,15 +1,6 @@
 import PropTypes from 'prop-types';
 import { Wrapper, TableHead, HeadCell, Row, Cell } from './Transactions.styled';
 const Transactions = ({ items }) => {
-  const renderList = () =>
-    items.map(({ id, type, amount, currency }, index) => (
-      <Row key={id} accent={index % 2 !== 0}>
-        <Cell className="capitalize">{type}</Cell>
-        <Cell>{amount}</Cell>
-        <Cell>{currency}</Cell>
-      </Row>
-    ));
-
   return (
     <Wrapper>
       <TableHead>
@@ -19,8 +10,15 @@ const Transactions = ({ items }) => {
           <HeadCell>Currency</HeadCell>
         </Row>
       </TableHead>
-
-      <tbody>{items && renderList()}</tbody>
+      <tbody>
+        {items.map(({ id, type, amount, currency }, index) => (
+          <Row key={id} accent={index % 2 !== 0}>
+            <Cell className="capitalize">{type}</Cell>
+            <Cell>{amount}</Cell>
+            <Cell>{currency}</Cell>
+          </Row>
+        ))}
+      </tbody>
     </Wrapper>
   );
 };
